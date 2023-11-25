@@ -56,7 +56,7 @@ have the ability to modify the descrip6on and value of an item.
     .fetch(),
     .search(),
    
-    3.3. Cart - .create(),//incrementing card_ID for new cart or to add new product
+    3.3. Cart - .create(),//incrementing cart_ID for new cart or to add new product
     .fetch(), //status of cart
     .update() //to update quantity,
    
