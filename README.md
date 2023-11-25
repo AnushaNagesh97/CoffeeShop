@@ -3,7 +3,6 @@ Backend:
 - Sequelize, NodeJS, Express
 Frontend:
 
-
 TODO:
 1. Connect to DB and create models
 2. Fetch data from DB (SELECT queries)
@@ -32,9 +31,9 @@ Anusha
 1. Connect to DB and create models
 
 Karan
+2. Fetch data from DB (SELECT queries)
 
 Karthik
-2. maybe?
 
 Zeel
 
