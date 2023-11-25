@@ -1,4 +1,5 @@
 //const sequelize = require('./server'); // assuming you have the Sequelize instance configured in 'db.js'
+const { read } = require('fs');
 const { Sequelize, DataTypes } = require('sequelize');
 
 
@@ -17,18 +18,18 @@ const Order = sequelize.define('Order', {
     quantity: true
 });
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully! -- Order')
-    })
-    .catch((error) => {
-        console.error('Unable to connect to the database:', error);
-    });
+Order.getAll = function() {
+    return sequelize.query('SELECT * FROM orders', { type: Sequelize.QueryTypes.SELECT });
+};
 
-sequelize.sync().then(() => {
-    console.log('Order table created successfully!')
-}).catch((error) => {
-    console.error('Unable to create table:', error);
-});
+Order.getOne = function(id) {
+    return sequelize.query(`SELECT * FROM orders WHERE order_id = ${id}`, { type: Sequelize.QueryTypes.SELECT });
+};
+
+Order.add = function(order) {
+    return sequelize.query(`INSERT INTO orders (customer_id, order_date, product_id, total_price, quantity) VALUES (${order.customer_id}, '${order.order_date}', ${order.product_id}, ${order.total_price}, ${order.quantity})`, { type: Sequelize.QueryTypes.INSERT });
+};
+
+// no need for update and delete orders here as they are read-only and write once
 
 module.exports = Order;

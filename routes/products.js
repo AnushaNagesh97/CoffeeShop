@@ -1,0 +1,1 @@
+// return the product ejs page from this route.

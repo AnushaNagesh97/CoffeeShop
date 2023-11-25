@@ -19,18 +19,24 @@ const Product = sequelize.define('Product', {
     alt_text: true
 });
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully! -- Product')
-    })
-    .catch((error) => {
-        console.error('Unable to connect to the database:', error);
-    });
+Product.getAll = function() {
+    return sequelize.query('SELECT * FROM products', { type: Sequelize.QueryTypes.SELECT });
+};
 
-sequelize.sync().then(() => {
-    console.log('Product table created successfully!')
-}).catch((error) => {
-    console.error('Unable to create table:', error);
-});
+Product.getOne = function(id) {
+    return sequelize.query(`SELECT * FROM products WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.SELECT });
+};
+
+Product.add = function(product) {
+    return sequelize.query(`INSERT INTO products (product_name, price, available_stock, category, image_path, product_description, alt_text) VALUES ('${product.product_name}', ${product.price}, ${product.available_stock}, '${product.category}', '${product.image_path}', '${product.product_description}', '${product.alt_text}')`, { type: Sequelize.QueryTypes.INSERT });
+};
+
+// Product.update = function(id, product) {
+//     return sequelize.query(`UPDATE products SET product_name = '${product.product_name}', price = ${product.price}, available_stock = ${product.available_stock}, category = '${product.category}', image_path = '${product.image_path}', product_description = '${product.product_description}', alt_text = '${product.alt_text}' WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
+// };
+
+Product.delete = function(id) {
+    return sequelize.query(`DELETE FROM products WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
+};
 
 module.exports = Product;

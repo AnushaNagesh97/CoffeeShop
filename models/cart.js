@@ -16,18 +16,22 @@ const Cart = sequelize.define('Cart', {
     product_id: true
 });
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully! -- Cart')
-    })
-    .catch((error) => {
-        console.error('Unable to connect to the database:', error);
-    });
+Cart.getAll = function() {
+    return sequelize.query('SELECT * FROM carts', { type: Sequelize.QueryTypes.SELECT });
+};
 
-sequelize.sync().then(() => {
-    console.log('Cart table created successfully!')
-}).catch((error) => {
-    console.error('Unable to create table:', error);
-});
+Cart.getOne = function(id) {
+    return sequelize.query(`SELECT * FROM carts WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.SELECT });
+};
+
+Cart.add = function(cart) {
+    return sequelize.query(`INSERT INTO carts (customer_id, quantity, is_active, product_id) VALUES (${cart.customer_id}, ${cart.quantity}, ${cart.is_active}, ${cart.product_id})`, { type: Sequelize.QueryTypes.INSERT });
+};
+
+Cart.update = function(id, cart) {
+    return sequelize.query(`UPDATE carts SET customer_id = ${cart.customer_id}, quantity = ${cart.quantity}, is_active = ${cart.is_active}, product_id = ${cart.product_id} WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
+}
+
+// no need for delete cart here as we would be marking the cart as inactive instead of deleting it
 
 module.exports = Cart;
