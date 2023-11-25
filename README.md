@@ -1,40 +1,95 @@
-Frameworks:
-Backend:
-- Sequelize, NodeJS, Express
-Frontend:
+# About 
+Create a Full-Stack Web Application for a CoffeeShop that has following functionalities:
+1. User signup: Register a new user to the system.
+- Check the new username or email address if it’s already registered to the system using AJAX.
+- Form validation: Check if all mandatory fields are filled out.
+- Check if password is strong enough. Define the rules of having a strong password. User passwords should be hashed and hashed version of passwords should be
+stored in the database.
 
+<<<<<<< HEAD
 TODO:
+=======
+2. User login.
+
+3. Session Management.
+4. CRUD operations
+- A Database item should be associated with an image.
+- Create items (Admin only) – Adding new items to the inventory.
+- Read items – Fetch records from database in the form of XML/JSON and render
+them on page.
+- Update items – Update the stock count based on transac6ons and admin should
+have the ability to modify the descrip6on and value of an item.
+- Delete items (Admin only) – Dele6ng an item from the inventory.
+5. Search and Filter capabili6es.
+6. Responsive application that adapts to various devices and screen sizes.
+7. Add items to cart as you browse and checkout at the end
+
+# Frameworks:
+## Backend:
+- Sequelize,
+- NodeJS,
+- Express
+## Frontend:
+- HTML
+- CSS
+- JavaScript
+- EJS
+
+# Getting Started
+
+1. Clone the project into your local system.
+2. `cd CoffeeShop`
+3. Execute `npm install`.  // This will install all the required dependencies into your machine.
+4. Execute `node server` to connect to the tables through ORM
+5. Execute 'node app' to execute front end
+
+# TODO
+>>>>>>> 50efb1e9a986c4fb3e8a830d49405aa7781eaed3
 1. Connect to DB and create models
 2. Fetch data from DB (SELECT queries)
 3. Controller files - execute business logic
+   
     3.1. Users - user.create(),
     user.fetch(), //need cart_ID, admin info
     user.login(),
     session management - TBD
+   
     3.2. Product - product.create(),
     product.update(),
     product.delete(),
     .fetch(),
     .search(),
+   
     3.3. Cart - .create(),//incrementing card_ID for new cart or to add new product
     .fetch(), //status of cart
     .update() //to update quantity,
+   
     3.4. Orders - .create(),
     .fetch()
-4. Route handlers to be mapped to the methods defined in 3.
-5. Define end points in Express app.js
-6. Frontend //TBD//
+5. Route handlers to be mapped to the methods defined in 3.
+6. Define end points in Express app.js
+7. Frontend //TBD//
 
+# Team
 
-
-Anusha
+Anusha:
 1. Connect to DB and create models
 
+<<<<<<< HEAD
 Karan
 2. Fetch data from DB (SELECT queries)
 
 Karthik
+=======
+Karan:
 
-Zeel
+2. Fetch data from DB (SELECT queries) and 
+3. Controller files - execute business logic
+>>>>>>> 50efb1e9a986c4fb3e8a830d49405aa7781eaed3
 
-Shashwat
+Karthik:
+
+Zeel:
+
+Shashwat:
+
