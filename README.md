@@ -37,7 +37,8 @@ have the ability to modify the descrip6on and value of an item.
 1. Clone the project into your local system.
 2. `cd CoffeeShop`
 3. Execute `npm install`.  // This will install all the required dependencies into your machine.
-4. Execute `node app.js` or `npm start`
+4. Execute `node server` to connect to the tables through ORM
+5. Execute 'node app' to execute front end
 
 # TODO
 1. Connect to DB and create models
