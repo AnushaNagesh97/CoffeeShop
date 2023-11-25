@@ -6,9 +6,6 @@ Create a Full-Stack Web Application for a CoffeeShop that has following function
 - Check if password is strong enough. Define the rules of having a strong password. User passwords should be hashed and hashed version of passwords should be
 stored in the database.
 
-<<<<<<< HEAD
-TODO:
-=======
 2. User login.
 
 3. Session Management.
@@ -40,11 +37,10 @@ have the ability to modify the descrip6on and value of an item.
 1. Clone the project into your local system.
 2. `cd CoffeeShop`
 3. Execute `npm install`.  // This will install all the required dependencies into your machine.
-4. Execute `node server` to connect to the tables through ORM
-5. Execute 'node app' to execute front end
+4. Execute `node server` to connect to the backend
+5. Execute `node app` to execute front end logic
 
-# TODO
->>>>>>> 50efb1e9a986c4fb3e8a830d49405aa7781eaed3
+# TODO:
 1. Connect to DB and create models
 2. Fetch data from DB (SELECT queries)
 3. Controller files - execute business logic
@@ -75,17 +71,11 @@ have the ability to modify the descrip6on and value of an item.
 Anusha:
 1. Connect to DB and create models
 
-<<<<<<< HEAD
 Karan
 2. Fetch data from DB (SELECT queries)
+3. Controller files - execute business logic
 
 Karthik
-=======
-Karan:
-
-2. Fetch data from DB (SELECT queries) and 
-3. Controller files - execute business logic
->>>>>>> 50efb1e9a986c4fb3e8a830d49405aa7781eaed3
 
 Karthik:
 
