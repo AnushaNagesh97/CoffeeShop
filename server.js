@@ -61,7 +61,8 @@ const sequelize = new Sequelize('coffeeshopdb', 'root', 'root', {
 // Routes
 app.get('/', (req, res, next) => {
     // return the home page from here
-    res.send('Hello World!' + Date.now());
+    //res.send('Hello World!' + Date.now());
+    res.render('index')
     next();
 });
 

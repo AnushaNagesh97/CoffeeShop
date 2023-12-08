@@ -1,8 +1,118 @@
-show all products added to the cart by the user. 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Coffee Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Coffee Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-list"></i> Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Category 1</a></li>
+                            <li><a class="dropdown-item" href="#">Category 2</a></li>
+                            <!-- More categories -->
+                        </ul>
+                    </li>
+                    <form class="d-flex mx-auto">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                </ul>
+                
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-person-plus"></i> Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-cart"></i> Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-show a form with user information from the user table for checkout process.
-some of the above information should be read-only like email, wallet balance.
-user should be able to modify the name, address, phone number fields for delivery.
 
-show current cart total and checkout button.
+    <div class="container cart-container my-5">
+        <h2 class="text-center mb-4">Your Cart</h2>
 
+        <div class="cart-items">
+            <!-- Example cart item (Repeat this block for each item in the cart) -->
+            <div class="row mb-3">
+                <div class="col-md-2">
+                    <img src="path_to_product_image.jpg" alt="Product Image" class="img-fluid">
+                </div>
+                <div class="col-md-4">
+                    <h5>Product Name</h5>
+                    <p>Price: $XX.XX</p>
+                    <p>Quantity: X</p>
+                </div>
+                <!-- Additional details can be added here -->
+            </div>
+            <!-- End of cart items loop -->
+        </div>
+
+        <form action="/checkout" method="post" class="user-info-form">
+            <h3 class="mb-3">Shipping Information</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" readonly value="user_email@example.com">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="wallet-balance" class="form-label">Wallet Balance</label>
+                    <input type="text" class="form-control" id="wallet-balance" name="wallet-balance" readonly value="$100.00">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="John Doe">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" value="123 Main St">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" value="555-1234">
+                </div>
+            </div>
+
+            <div class="cart-total mb-3">
+                <h4>Total: $XXX.XX</h4>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Checkout</button>
+        </form>
+    </div>
+
+    <footer class="bg-brown text-white text-center py-3">
+        <p>&copy; 2023 [name]. All Rights Reserved.</p>
+        <div class="social-icons">
+            <a href="your_facebook_link" class="bi bi-facebook"></a>
+            <a href="your_twitter_link" class="bi bi-twitter"></a>
+            <a href="your_instagram_link" class="bi bi-instagram"></a>
+            <!-- Add other social media links as needed -->
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
