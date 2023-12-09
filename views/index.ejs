@@ -1,12 +1,3 @@
-<<<<<<< Updated upstream
-home page for the site.
-
-navbar: 
-    links to the login and register pages.
-    search box to search for products. can display search results on same page or another page. can decide on this later.
-    categories dropdown menu. can display categories on same page or another page. can decide on this later.
-    cart icon. can display cart on same page or another page. can decide on this later.
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,16 +21,6 @@ navbar:
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-list"></i> Categories
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/category">Equipment</a></li>
-                            <li><a class="dropdown-item" href="/category">Coffee Beans</a></li>
-                            <li><a class="dropdown-item" href="/category">Accessories</a></li>
-                        </ul>
-                    </li>
                     <form class="d-flex mx-auto">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-light" type="submit">Search</button>
@@ -125,10 +106,12 @@ navbar:
                 </div>
                 
             </div>
+            <!-- "View All" button -->
+            <div class="text-center mt-4">
+                <button class="btn btn-primary" a href="/viewall">View All</button>
+            </div>
         </div>
     </section>
-
-    <button>View All</button>
     
     <section id="about-us" class="py-5">
         <div class="container">
@@ -147,11 +130,20 @@ navbar:
         </div>
     </section>
     
->>>>>>> Stashed changes
 
-can display a carousel of images, from the list of all categories.
+    <footer class="bg-brown text-white text-center py-3">
+        <p>&copy; 2023 [name]. All Rights Reserved.</p>
+        <div class="social-icons">
+            <a href="your_facebook_link" class="bi bi-facebook"></a>
+            <a href="your_twitter_link" class="bi bi-twitter"></a>
+            <a href="your_instagram_link" class="bi bi-instagram"></a>
+            <!-- Add other social media links as needed -->
+        </div>
+    </footer>
+    
+    
 
-can display a list of all categories, with links to the category page.
-
-can display a list of some products, with links to the product page.
-
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

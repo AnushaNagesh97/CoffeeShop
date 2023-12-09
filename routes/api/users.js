@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../../models/User');
 
 // GET all users
 router.get('/', async (req, res) => {
@@ -26,6 +25,9 @@ router.get('/:id', async (req, res) => {
         res.status(500).send('Error: ' + error);
     }
 });
+
+
+
 
 // get all admins from the database.
 
