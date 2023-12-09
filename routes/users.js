@@ -5,15 +5,17 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
 
-passport.use(new LocalStrategy(async function verify(username, password, cb) {
+passport.use(new LocalStrategy(async function verify(email, password, cb) {
     try {
-        const query = { username: username };
-        const row = await mongoClient.collection.findOne(query);
+        const row = await User.getUserByEmail(email);
         if (!row) { return cb(null, false, { message: 'Incorrect username or password.' }); }
-        const rowSaltBuffer = Buffer.from(row.salt.buffer);
+        const result = row[0];
+        const rowSaltBuffer = Buffer.from(result.salt, "base64");
         crypto.pbkdf2(password, rowSaltBuffer, 310000, 32, 'sha256', function(err, hashedPassword) {
             if (err) { return cb(err); }
-            const passwordBuffer = Buffer.from(row.password.buffer);
+            const passwordBuffer = Buffer.from(result.password, "base64");
+            console.log(passwordBuffer);
+            console.log(hashedPassword);
             if (!crypto.timingSafeEqual(passwordBuffer, hashedPassword)) {
                 console.log("User not authenticated");
               return cb(null, false, { message: 'Incorrect username or password.' });
@@ -52,13 +54,20 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
+router.post('/login', passport.authenticate('local', {
+    successReturnToOrRedirect: '/home',
+    failureRedirect: '/login',
+    failureMessage: true
+  }));
+
 router.post("/register", async function(req, res, next) {
     var salt = crypto.randomBytes(16);
+    console.log(salt);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashedPassword) {
         if (err) { return next(err);}
         const sendPackage = {
-            password: hashedPassword,
-            salt: salt,
+            password: hashedPassword.toString('base64'),
+            salt: salt.toString('base64'),
             email: req.body.email
         }
         console.log(sendPackage);

@@ -31,8 +31,8 @@ User.getAll = async function() {
     return sequelize.query('SELECT * FROM users', { type: Sequelize.QueryTypes.SELECT });
 };
 
-User.getOne = async function(id) {
-    return sequelize.query(`SELECT * FROM users WHERE customer_id = ${id}`, { type: Sequelize.QueryTypes.SELECT });
+User.getUserByEmail = async function(email) {
+    return sequelize.query(`SELECT * FROM users WHERE email = '${email}'`, { type: Sequelize.QueryTypes.SELECT });
 };
 
 User.addRegister = async function(user) {
