@@ -30,6 +30,12 @@ Order.add = function(order) {
     return sequelize.query(`INSERT INTO orders (customer_id, order_date, product_id, total_price, quantity) VALUES (${order.customer_id}, '${order.order_date}', ${order.product_id}, ${order.total_price}, ${order.quantity})`, { type: Sequelize.QueryTypes.INSERT });
 };
 
+Order.getbyuser = function(id) {
+    return sequelize.query(`SELECT * FROM orders WHERE customer_id = ${id}`, { type: Sequelize.QueryTypes.SELECT });
+};
+Order.getbyuserandorder = function(id, orderid) {
+    return sequelize.query(`SELECT * FROM orders WHERE customer_id = ${id} AND order_id = ${orderid}`, { type: Sequelize.QueryTypes.SELECT });
+};
 // no need for update and delete orders here as they are read-only and write once
 
 module.exports = Order;
