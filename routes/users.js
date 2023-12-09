@@ -5,7 +5,9 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render('index');
 });
-
+router.get('/index', (req, res) => {
+    res.render('index');
+});
 router.get('/login', (req, res) => {
     res.render('login');
 });
@@ -16,10 +18,6 @@ router.get('/register', (req, res) => {
 
 router.get('/cart', (req, res) => {
     res.render('cart');
-});
-
-router.get('/category', (req, res) => {
-    res.render('category');
 });
 
 module.exports = router;

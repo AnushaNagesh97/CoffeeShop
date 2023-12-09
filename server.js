@@ -35,7 +35,7 @@ app.use('/api/orders', apiOrderRouter);
 
 app.use('/', usersRouter);
 app.use('/cart', cartsRouter);
-//app.use('/register', usersRouter);
+app.use('/category', productsRouter);
 
 // Create a Sequelize instance and connect to the database
 const sequelize = new Sequelize('coffeeshopdb', 'root', 'root', {
