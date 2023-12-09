@@ -35,7 +35,9 @@ Product.update = function(id, product) {
     return sequelize.query(`UPDATE products SET product_name = '${product.product_name}', price = ${product.price}, available_stock = ${product.available_stock}, category = '${product.category}', image_path = '${product.image_path}', product_description = '${product.product_description}', alt_text = '${product.alt_text}' WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
 };
 
-Product.delete = function(id) {
+Product.delete = async function(id) {
+    await sequelize.query(`DELETE FROM carts WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
+    await sequelize.query(`DELETE FROM orders WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
     return sequelize.query(`DELETE FROM products WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
 };
 
@@ -49,5 +51,10 @@ Product.getbycategory = function(search_string){
     return sequelize.query(`SELECT * FROM products WHERE category LIKE '%${search_string}%'`,{type: Sequelize.QueryTypes.SELECT});
 };
 
-
+Product.getavailablestock = function(){
+    return sequelize.query(`SELECT * FROM products WHERE available_stock > 0`,{type: Sequelize.QueryTypes.SELECT});
+};
+Product.getproductbyprice = function(price){
+    return sequelize.query(`SELECT * FROM products WHERE price <= ${price}`,{type: Sequelize.QueryTypes.SELECT});
+};
 module.exports = Product;
