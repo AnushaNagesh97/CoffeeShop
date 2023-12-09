@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Route to render products.ejs when the endpoint '/' is reached
 router.get('/', (req, res) => {
-    res.render('category');
+    res.render('viewall');
 });
 
 router.get('/product', (req, res) => {
