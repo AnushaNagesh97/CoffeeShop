@@ -45,7 +45,9 @@ passport.use(new LocalStrategy(async function verify(email, password, cb) {
 router.get('/', (req, res) => {
     res.render('index');
 });
-
+router.get('/index', (req, res) => {
+    res.render('index');
+});
 router.get('/login', (req, res) => {
     res.render('login');
 });
@@ -99,4 +101,5 @@ router.post("/register", async function(req, res, next) {
     });
     
 });
+
 module.exports = router;

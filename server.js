@@ -45,8 +45,8 @@ app.use('/api/carts', apiCartRouter);
 app.use('/api/orders', apiOrderRouter);
 
 app.use('/', usersRouter);
-// app.use('/', usersRouter);
-//app.use('/register', usersRouter);
+app.use('/cart', cartsRouter);
+app.use('/category', productsRouter);
 
 // Create a Sequelize instance and connect to the database
 const sequelize = new Sequelize('coffeeshopdb', 'root', 'root', {
@@ -76,9 +76,14 @@ const sequelize = new Sequelize('coffeeshopdb', 'root', 'root', {
 app.get('/', (req, res, next) => {
     // return the home page from here
     //res.send('Hello World!' + Date.now());
+<<<<<<< HEAD
+    res.render('index')
+    next();
+=======
     // res.render('user_customer')
     // next();
     productsRouter.get('/', (req, res) => {});
+>>>>>>> 65a53c6510a11b42360201a3b3153f412830db07
 });
 
 app.listen(port, () => {
