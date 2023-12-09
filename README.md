@@ -76,7 +76,7 @@ Karan
 
 Karthik: Working on User and Cart functionalites and passport authentication.
 
-Zeel:
+Zeel: 
 
-Shashwat:
+Shashwat: Added routes for orders, products and cart. (check required)
 
