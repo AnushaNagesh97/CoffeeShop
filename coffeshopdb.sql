@@ -62,15 +62,15 @@ ALTER TABLE Users ADD FOREIGN KEY (cart_id) REFERENCES Carts(cart_id);
 -- Insert sample products
 INSERT INTO Products (product_name, price, available_stock, category, image_path, product_description, alt_text) VALUES 
     ('Espresso Roast', 15.99, 100, 'Coffee Beans', '/images/espresso_roast.jpg', 'Dark roast with rich flavor and caramel sweetness', 'Espresso roast coffee beans'),
-    ('French Press', 24.99, 50, 'Equipment', '/images/french_press.jpg', 'Classic French press for brewing', 'French press coffee maker'),
-    ('Pour Over Kit', 19.99, 75, 'Accessories', '/images/pour_over_kit.jpg', 'Pour over coffee maker with stainless steel filter', 'Pour over kit'),
-    ('Latte Art Set', 39.99, 40, 'Accessories', '/images/latte_art_set.jpg', 'Complete set for creating latte art at home', 'Latte art set'),
+    ('French Press', 24.99, 50, 'Equipment', '/images/french_press.jpeg', 'Classic French press for brewing', 'French press coffee maker'),
+    ('Pour Over Kit', 19.99, 75, 'Accessories', '/images/pour_over_kit.jpeg', 'Pour over coffee maker with stainless steel filter', 'Pour over kit'),
+    ('Latte Art Set', 39.99, 40, 'Accessories', '/images/latte_art_set.jpeg', 'Complete set for creating latte art at home', 'Latte art set'),
     ('Coffee Flavoring Syrups', 9.99, 150, 'Coffee Beans', '/images/flavoring_syrups.jpg', 'Variety pack of flavored syrups for coffee', 'Flavor syrups'),
-    ('Barista Steam Wand', 89.99, 30, 'Equipment', '/images/steam_wand.jpg', 'Professional steam wand for milk frothing', 'Steam wand'),
-    ('Digital Coffee Scale', 29.99, 80, 'Accessories', '/images/coffee_scale.jpg', 'Digital scale for precise coffee measurements', 'Digital scale'),
-    ('Organic Raw Sugar', 4.99, 200, 'Coffee Beans', '/images/raw_sugar.jpg', 'Organic raw sugar for coffee sweetening', 'Raw sugar'),
-    ('Caramel Macchiato Beans', 17.99, 60, 'Coffee Beans', '/images/macchiato_beans.jpg', 'Caramel-flavored macchiato coffee beans', 'Caramel macchiato beans'),
-    ('Insulated Travel Mug', 14.99, 100, 'Accessories', '/images/travel_mug.jpg', 'Insulated mug to keep your coffee hot on the go', 'Travel mug');
+    ('Coffee Beans Grinder', 89.99, 30, 'Equipment', '/images/Grinder.jpeg', 'Professional coffe frinder for coffee beans', 'Steam wand'),
+    ('Digital Coffee Scale', 29.99, 80, 'Equipment', '/images/coffee_scale.jpeg', 'Digital scale for precise coffee measurements', 'Digital scale'),
+    ('Mushroom Coffee Beans', 4.99, 200, 'Coffee Beans', '/images/raw_sugar.jpg', 'Organic raw sugar for coffee sweetening', 'Raw sugar'),
+    ('Caramel Macchiato Beans', 17.99, 60, 'Coffee Beans', '/images/macchiato_beans.jpeg', 'Caramel-flavored macchiato coffee beans', 'Caramel macchiato beans'),
+    ('Insulated Travel Mug', 14.99, 100, 'Accessories', '/images/travel_mug.jpeg', 'Insulated mug to keep your coffee hot on the go', 'Travel mug');
  
 -- Insert sample users
 INSERT INTO Users (customer_name, address, phone_number, is_Admin, wallet_balance, email) VALUES 
