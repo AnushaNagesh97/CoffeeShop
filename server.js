@@ -62,7 +62,7 @@ const sequelize = new Sequelize('coffeeshopdb', 'root', 'root', {
 app.get('/', (req, res, next) => {
     // return the home page from here
     //res.send('Hello World!' + Date.now());
-    res.render('user_customer')
+    res.render('index')
     next();
 });
 
