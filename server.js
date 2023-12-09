@@ -34,7 +34,7 @@ app.use('/api/carts', apiCartRouter);
 app.use('/api/orders', apiOrderRouter);
 
 app.use('/', usersRouter);
-// app.use('/', usersRouter);
+app.use('/cart', cartsRouter);
 //app.use('/register', usersRouter);
 
 // Create a Sequelize instance and connect to the database

@@ -14,4 +14,12 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
+router.get('/cart', (req, res) => {
+    res.render('cart');
+});
+
+router.get('/category', (req, res) => {
+    res.render('category');
+});
+
 module.exports = router;
