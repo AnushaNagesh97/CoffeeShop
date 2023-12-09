@@ -31,7 +31,16 @@ Cart.add = function(cart) {
 Cart.update = function(id, cart) {
     return sequelize.query(`UPDATE carts SET customer_id = ${cart.customer_id}, quantity = ${cart.quantity}, is_active = ${cart.is_active}, product_id = ${cart.product_id} WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
 }
-
+Cart.getActive = function(id) {
+    return sequelize.query(`SELECT * FROM carts WHERE customer_id = ${id} AND is_active = 1`, { type: Sequelize.QueryTypes.SELECT });
+};
+Cart.getStatus = function(id) {
+    return sequelize.query(`SELECT is_active FROM carts WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.SELECT });
+};
 // no need for delete cart here as we would be marking the cart as inactive instead of deleting it
+// I am adding deleting functionality here as we would be marking the cart as inactive instead of deleting it
+Cart.deletecart = function(id) {
+    return sequelize.query(`DELETE FROM carts WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
+};
 
 module.exports = Cart;

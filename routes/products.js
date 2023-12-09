@@ -1,1 +1,12 @@
-// return the product ejs page from this route.
+const express = require('express');
+const router = express.Router();
+
+// Route to render products.ejs when the endpoint '/' is reached
+router.get('/', (req, res) => {
+    res.render('category');
+});
+
+router.get('/product', (req, res) => {
+    res.render('product');
+});
+module.exports = router;
