@@ -15,6 +15,12 @@ apiUserRouter = require('./routes/api/users');
 apiCartRouter = require('./routes/api/carts');
 apiOrderRouter = require('./routes/api/orders');
 
+// Importing route files
+const productsRouter = require('./routes/products');
+const cartsRouter = require('./routes/carts');
+const ordersRouter = require('./routes/orders');
+const usersRouter = require('./routes/users');
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,6 +33,9 @@ app.use('/api/users', apiUserRouter);
 app.use('/api/carts', apiCartRouter);
 app.use('/api/orders', apiOrderRouter);
 
+app.use('/', usersRouter);
+app.use('/cart', cartsRouter);
+app.use('/category', productsRouter);
 
 // Create a Sequelize instance and connect to the database
 const sequelize = new Sequelize('coffeeshopdb', 'root', 'root', {
@@ -52,20 +61,20 @@ const sequelize = new Sequelize('coffeeshopdb', 'root', 'root', {
 //         console.error('Unable to connect to the database:', error);
 //     });
 
-
-
-
-
-
-
 // Routes
 app.get('/', (req, res, next) => {
     // return the home page from here
     //res.send('Hello World!' + Date.now());
+<<<<<<< HEAD
     res.render('index')
     next();
+=======
+    // res.render('user_customer')
+    // next();
+    productsRouter.get('/', (req, res) => {});
+>>>>>>> 65a53c6510a11b42360201a3b3153f412830db07
 });
 
 app.listen(port, () => {
-    console.log('Server listening on port ' + port);  
+    console.log('Server listening on port ' + port);
 });
