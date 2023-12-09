@@ -74,9 +74,10 @@ Karan
 2. Fetch data from DB (SELECT queries)
 3. Controller files - execute business logic
 
-Kartik: Working on User and Cart functionalities, and user authentication.
 
-Zeel:
+Karthik: Working on User and Cart functionalites and passport authentication.
 
-Shashwat:
+Zeel: 
+
+Shashwat: Added routes for orders, products and cart. (check required)
 
