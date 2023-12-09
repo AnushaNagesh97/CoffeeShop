@@ -14,8 +14,6 @@ passport.use(new LocalStrategy(async function verify(email, password, cb) {
         crypto.pbkdf2(password, rowSaltBuffer, 310000, 32, 'sha256', function(err, hashedPassword) {
             if (err) { return cb(err); }
             const passwordBuffer = Buffer.from(result.password, "base64");
-            console.log(passwordBuffer);
-            console.log(hashedPassword);
             if (!crypto.timingSafeEqual(passwordBuffer, hashedPassword)) {
                 console.log("User not authenticated");
               return cb(null, false, { message: 'Incorrect username or password.' });
@@ -72,7 +70,6 @@ router.post("/register", async function(req, res, next) {
             salt: salt.toString('base64'),
             email: req.body.email
         }
-        console.log(sendPackage);
         const result = await User.addRegister(sendPackage);
         console.log(result);
         try{
@@ -83,7 +80,7 @@ router.post("/register", async function(req, res, next) {
                 return res.redirect('/registerInvalid');
             }
             
-            console.log(result);
+
             const user = {
                 _id: result.insertedId,
                 username: req.body.username,
