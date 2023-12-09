@@ -74,7 +74,7 @@ Karan
 2. Fetch data from DB (SELECT queries)
 3. Controller files - execute business logic
 
-Kartik: Working on User and Cart functionalities.
+Kartik: Working on User and Cart functionalities, and user authentication.
 
 Zeel:
 
