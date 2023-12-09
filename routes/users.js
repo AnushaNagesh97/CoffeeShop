@@ -57,7 +57,7 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local', {
-    successReturnToOrRedirect: '/home',
+    successReturnToOrRedirect: '/index', 
     failureRedirect: '/login',
     failureMessage: true
   }));
