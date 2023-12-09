@@ -8,3 +8,120 @@ can create a dropdown maybe to filter the users by role.
 
 show product management form for CRUD operations
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Admin - Coffee Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Coffee Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-list"></i> Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Category 1</a></li>
+                            <li><a class="dropdown-item" href="#">Category 2</a></li>
+                            <!-- More categories -->
+                        </ul>
+                    </li>
+                    <form class="d-flex mx-auto">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                </ul>
+                
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-person-plus"></i> Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-cart"></i> Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4">User Administration</h2>
+
+        <!-- User Role Filter -->
+        <div class="user-filter mb-4">
+            <select class="form-select" onchange="filterUsers(this.value)">
+                <option value="all">All Users</option>
+                <option value="customer">Customers</option>
+                <option value="admin">Admins</option>
+            </select>
+        </div>
+
+        <!-- Users Table -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <!-- Other columns as necessary -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Populate with user data -->
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 class="text-center mb-4">Product Management</h2>
+
+        <!-- Product Management Form (CRUD operations) -->
+        <form action="path_to_product_management" method="post">
+            <!-- Fields for product details (name, price, description, etc.) -->
+            <!-- Include hidden input for product ID when updating or deleting -->
+            <!-- CRUD operation buttons -->
+            <button type="submit" name="action" value="create" class="btn btn-success">Create</button>
+            <button type="submit" name="action" value="update" class="btn btn-primary">Update</button>
+            <button type="submit" name="action" value="delete" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+
+    <footer class="bg-brown text-white text-center py-3">
+        <p>&copy; 2023 [name]. All Rights Reserved.</p>
+        <div class="social-icons">
+            <a href="your_facebook_link" class="bi bi-facebook"></a>
+            <a href="your_twitter_link" class="bi bi-twitter"></a>
+            <a href="your_instagram_link" class="bi bi-instagram"></a>
+            <!-- Add other social media links as needed -->
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filterUsers(role) {
+            // JavaScript to filter users based on the selected role
+            // Implement AJAX call to fetch and display users
+        }
+    </script>
+</body>
+</html>
+
+
