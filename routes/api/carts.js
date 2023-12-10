@@ -51,7 +51,9 @@ router.get('/status/:id', async (req, res) => {
 });
 // for adding a new product to the cart
 // create a cart in the database for a user_id. increments cart_id by 1 and marks the cart as active. marks previous carts of that user as inactive.
-router.post('/', async (req, res) => {
+router.post('/addtocart', async (req, res) => {
+    console.log('Adding product to cart:', req.body);
+    console.log('Adding product to cart:', req.params);
     try {
         const cart = await Cart.add(req.body);
         console.log("Added cart: ", cart);
@@ -63,10 +65,13 @@ router.post('/', async (req, res) => {
 });
 // for updating the quantity of a product in the cart
 // update a cart in the database. updates the quantity of a product in the cart.
-router.get('/:id', async (req, res) => {
+router.post('/:id', async (req, res) => {
+    console.log('Fetching USER ID:', req.body.userId);
+    console.log('Fetching cart ID:', req.body.cart_id);
+    cart_id = req.body.cart_id;
     try {
-        const cart = await Cart.update(req.params.id, req.body);
-        console.log("Updated cart: ", cart);
+        const cart = await Cart.increment(cart_id);
+        console.log("Updated cart quantity: ", cart.quantity);
         res.json(cart);
     } catch (error) {
         console.error(error);

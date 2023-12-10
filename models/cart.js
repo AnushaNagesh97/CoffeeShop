@@ -31,6 +31,9 @@ Cart.add = function(cart) {
 Cart.update = function(id, cart) {
     return sequelize.query(`UPDATE carts SET customer_id = ${cart.customer_id}, quantity = ${cart.quantity}, is_active = ${cart.is_active}, product_id = ${cart.product_id} WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
 }
+Cart.increment = function(id) {
+    return sequelize.query(`UPDATE carts SET quantity = (quantity+1) WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
+}
 Cart.getActive = function(id) {
     return sequelize.query(`SELECT * FROM carts WHERE customer_id = ${id} AND is_active = 1`, { type: Sequelize.QueryTypes.SELECT });
 };

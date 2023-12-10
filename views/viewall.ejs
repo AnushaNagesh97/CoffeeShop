@@ -65,19 +65,69 @@
                         cardDiv.className = 'col-md-4 mb-4';
                         cardDiv.innerHTML = `
                             <div class="card">
-                                <img src="${product.image_path}" class="card-img-top" alt="${product.product_name} width="50px" height="50px">
+                                <img src="${product.image_path}" class="card-img-top" alt="${product.product_name}" width="50px" height="50px">
                                 <div class="card-body">
                                     <h5 class="card-title">${product.product_name}</h5>
+                                    <p class="card-text-id" hidden>${product.product_id}</p>
                                     <p class="card-text">$${product.price}</p>
+                                    <button class="btn btn-primary addToCartBtn" data-product-id="${product.id}">Add to Cart</button>
                                 </div>
                             </div>
                         `;
                         productsContainer.appendChild(cardDiv);
                     });
+    
+                    // Event listener for Add to Cart buttons
+                    document.querySelectorAll('.addToCartBtn').forEach(button => {
+                        console.log('Entering click');
+                        button.addEventListener('click', () => {
+                            const productId = button.parentNode.querySelector('.card-text-id').textContent;
+                            const productName = button.parentNode.querySelector('.card-title').textContent;
+                            const productPrice = button.parentNode.querySelector('.card-text').textContent;
+                            console.log('product deets:', productId, productName, productPrice);
+                            addToCart(productId, productName, productPrice);
+                        });
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching products:', error);
                 });
+    
+            function addToCart(productId, productName, productPrice) {
+                console.log('Adding product:', productId, productName, productPrice);
+                // Logic to add the product to the cart
+                const userId = 1; // Replace with the actual user ID
+                const requestData = {
+                    customer_id: userId,
+                    quantity: 1, // Assuming quantity is 1
+                    is_active: 1,
+                    product_id: productId,
+                    // Add other parameters if needed
+                };
+    
+                // Perform a fetch call to the API endpoint
+                fetch('/api/carts/addtocart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Product added to cart:', productName, productPrice);
+                    // Handle the success response here
+                })
+                .catch(error => {
+                    console.error('Error adding product to cart:', error);
+                    // Handle the error here
+                });
+            }
         });
     </script>
 </body>
