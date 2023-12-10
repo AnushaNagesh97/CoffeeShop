@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Name - Coffee Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Coffee Shop</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap Icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="styles.css">
+    </head>
 <body>
-    <!--Navbar-->
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
         <div class="container-fluid">
             <a class="navbar-brand" href="/index">Coffee Shop</a>
@@ -20,17 +21,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-list"></i> Categories
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/category">Equipment</a></li>
-                            <li><a class="dropdown-item" href="/category">Coffee Beans</a></li>
-                            <li><a class="dropdown-item" href="/category">Accessories</a></li>
-                            <!-- More categories -->
-                        </ul>
-                    </li>
                     <form class="d-flex mx-auto">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-light" type="submit">Search</button>
@@ -53,44 +43,42 @@
         </div>
     </nav>
 
-
-    <div class="container category-page my-5">
-        <div class="row">
-
-            <div class="games-grid">
-                <% games.forEach(game => { %>
-                  <div class="game-card">
-                    <img class="game-image" src="<%= game.image.path %>" alt="<%= game.image.description %>" title="<%= game.image.description %>">
-                    <h2 class="game-title"><a href="/games/<%= game._id %>"><%= game.name %></a></h2> 
-                  </div>
-                <% }) %>
-              </div>
-              
-            <!-- Loop through each product in the category -->
-            <!-- Example of a product card -->
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="path_to_product_image.jpg" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Product Name</h5>
-                        <p class="card-text">$XX.XX</p>
-                        <a href="/category/product" class="btn btn-primary">View</a>
-                    </div>
-                </div>
-            </div>
-            <!-- End of product loop -->
-        </div>
+    <div class="container" id="productsContainer">
+        <!-- Product tiles will be dynamically added here -->
     </div>
 
-    <footer class="bg-brown text-white text-center py-3">
-        <p>&copy; 2023 [name]. All Rights Reserved.</p>
-        <div class="social-icons">
-            <a href="your_facebook_link" class="bi bi-facebook"></a>
-            <a href="your_twitter_link" class="bi bi-twitter"></a>
-            <a href="your_instagram_link" class="bi bi-instagram"></a>
-            <!-- Add other social media links as needed -->
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('api/products/allproducts') // Replace with your API endpoint
+                .then(response => {
+                    console.log('RESPONSE:', response);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(products => {
+                    console.log('Products:', products);
+                    const productsContainer = document.getElementById('productsContainer');
+                    products.forEach(product => {
+                        const cardDiv = document.createElement('div');
+                        cardDiv.className = 'col-md-4 mb-4';
+                        cardDiv.innerHTML = `
+                            <div class="card">
+                                <img src="${product.image_path}" class="card-img-top" alt="${product.product_name} width="50px" height="50px">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.product_name}</h5>
+                                    <p class="card-text">$${product.price}</p>
+                                </div>
+                            </div>
+                        `;
+                        productsContainer.appendChild(cardDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                });
+        });
+    </script>
 </body>
 </html>

@@ -5,8 +5,10 @@ const Product = require('../../models/product');
 const { search } = require('./products');
 
 // GET all products
-router.get('/', async (req, res) => {
+router.get('/allproducts', async (req, res) => {
+    console.log('Entering API call');
     try {
+        console.log("Attempting to get All products ");
         const products = await Product.getAll();
         console.log("All products: ", products);
         res.json(products);

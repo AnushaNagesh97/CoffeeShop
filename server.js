@@ -77,11 +77,11 @@ app.get('/', (req, res, next) => {
     // return the home page from here
     //res.send('Hello World!' + Date.now());
 
-    res.render('index')
+res.render('index')
     next();
     // res.render('user_customer')
     // next();
-    // productsRouter.get('/', (req, res) => {});
+// productsRouter.get('/', (req, res) => {});
 });
 
 app.listen(port, () => {
