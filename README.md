@@ -81,3 +81,17 @@ Zeel:
 
 Shashwat: Added routes for orders, products and cart. (check required)
 
+
+Pending:
+Session management navbar
+
+Data fetch:
+Individual Product: /:id
+User Cart: /active/:id
+All past orders: /bycustomer/
+User Profile: /:id
+Admin: add, update, delete
+
+Search - /search/product/:name ; /search/category/:name
+OR
+Filter - by price, by category, 
