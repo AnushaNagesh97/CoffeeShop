@@ -31,12 +31,21 @@ User.getAll = async function() {
     return sequelize.query('SELECT * FROM users', { type: Sequelize.QueryTypes.SELECT });
 };
 
+User.getUserByID = async function(customer_id) {
+    return sequelize.query(`SELECT * FROM users WHERE customer_id = '${customer_id}'`, { type: Sequelize.QueryTypes.SELECT });
+};
+
 User.getUserByEmail = async function(email) {
     return sequelize.query(`SELECT * FROM users WHERE email = '${email}'`, { type: Sequelize.QueryTypes.SELECT });
 };
 
+User.getIDByEmail = async function(email) {
+    return sequelize.query(`SELECT customer_id FROM users WHERE email = '${email}'`, { type: Sequelize.QueryTypes.SELECT });
+};
+
 User.addRegister = async function(user) {
-    return sequelize.query(`INSERT INTO users (salt, password, email) VALUES ('${user.salt}', '${user.password}', '${user.email}')`, { type: Sequelize.QueryTypes.INSERT });
+    console.log(user);
+    return sequelize.query(`INSERT INTO users (salt, password, email, customer_name, address, phone_number) VALUES ('${user.salt}', '${user.password}', '${user.email}', '${user.customer_name}', '${user.address}', '${user.phone}')`, { type: Sequelize.QueryTypes.INSERT });
 };
 
 User.update = async function(id, user) {
