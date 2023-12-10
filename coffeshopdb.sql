@@ -9,7 +9,7 @@ CREATE TABLE Users (
     address VARCHAR(50),
     cart_id INT, -- This will become a foreign key later
     phone_number CHAR(10),
-    is_Admin BOOLEAN,
+    is_Admin BOOLEAN DEFAULT 0,
     wallet_balance FLOAT DEFAULT 0.0,
     password VARCHAR(255) NOT NULL, -- assuming hashed
     salt VARCHAR(255) NOT NULL,-- salt maybe req

@@ -46,21 +46,11 @@ qty change -->
 
     <div class="container cart-container my-5">
         <h2 class="text-center mb-4">Your Cart</h2>
-
-        <div class="cart-items">
-            <!-- Example cart item (Repeat this block for each item in the cart) -->
-            <div class="row mb-3">
-                <div class="col-md-2">
-                    <img src="path_to_product_image.jpg" alt="Product Image" class="img-fluid">
-                </div>
-                <div class="col-md-4">
-                    <h5>Product Name</h5>
-                    <p>Price: $XX.XX</p>
-                    <p>Quantity: X</p>
-                </div>
-                <!-- Additional details can be added here -->
+        <div class="container">
+            <h1>Active User Carts</h1>
+            <div class="cart-items" id="cartItems">
+                <!-- Active user carts will be displayed here -->
             </div>
-            <!-- End of cart items loop -->
         </div>
 
         <form action="/cart/checkout" method="post" class="user-info-form">
@@ -107,5 +97,104 @@ qty change -->
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = 1; // Replace with the actual user ID
+            try {
+                const response = await fetch(`/api/carts/active/${userId}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok for fetching carts');
+                }
+                const carts = await response.json();
+                console.log('Carts:', carts);
+
+                const cartItemsContainer = document.getElementById('cartItems');
+                carts.forEach(cart => {
+                    const cartDiv = document.createElement('div');
+                    cartDiv.className = 'row mb-3';
+                    cartDiv.innerHTML = `
+                        <div class="col-md-2">
+                            <img src="${cart.product_image}" alt="Product Image" class="img-fluid">
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Product ID: ${cart.product_id}</h5>
+                            <p>Quantity: ${cart.quantity}</p>
+                            <!-- <p class="cart-id-store" hidden>${cart.cart_id}</p> -->
+                            <button class="btn btn-success incrementBtn" data-cart-id="${cart.cart_id}">Increment</button>
+                            <button class="btn btn-danger deleteBtn" data-cart-id="${cart.cart_id}">Delete</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartDiv);
+                });
+
+                // Event listeners for increment and delete buttons
+                document.querySelectorAll('.incrementBtn').forEach(button => {
+                    console.log('Incrementing the quantity');
+                    button.addEventListener('click', async () => {
+                        const cartId = event.currentTarget.getAttribute('data-cart-id');
+                        //console.log('fetchign cart-id to increment the quantity', cartId);
+                        await handleIncrement(userId, cartId);
+                        const quantityParagraph = button.parentNode.querySelector('p');
+                        const currentQuantity = parseInt(quantityParagraph.textContent.split(': ')[1], 10);
+                        const updatedQuantity = currentQuantity + 1;
+                        quantityParagraph.textContent = `Quantity: ${updatedQuantity}`;
+                    });
+                });
+
+                document.querySelectorAll('.deleteBtn').forEach(button => {
+                    button.addEventListener('click', async () => {
+                        const cartId = button.getAttribute('data-cart-id');
+                        await handleDelete(cartId);
+                    });
+                });
+            } catch (error) {
+                console.error('Error fetching or processing carts:', error);
+            }
+        });
+
+        async function handleIncrement(userId, cartId) {
+            try {
+                console.log('API call to increment the quantity', userId, cartId);
+        
+                const requestData = {
+                    userId: userId,
+                    cart_id: cartId // Assuming this is the cart_id to be passed in req.body
+                };
+        
+                const response = await fetch(`/api/carts/${cartId}`, {
+                    method: 'POST', // Change the method to GET or appropriate method for your server
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+        
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Update cart quantity
+                console.log(`Incremented quantity for cart ID ${cartId}`);
+            } catch (error) {
+                console.error('Error incrementing quantity:', error);
+            }
+        }
+
+        async function handleDelete(cartId) {
+            try {
+                const response = await fetch(`/api/carts/${cartId}`, {
+                    method: 'DELETE'
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Remove cart item from display
+                console.log(`Deleted cart with ID ${cartId}`);
+            } catch (error) {
+                console.error('Error deleting cart:', error);
+            }
+        }
+    </script>
 </body>
+
 </html>
