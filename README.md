@@ -87,11 +87,14 @@ Session management navbar
 
 Data fetch:
 Individual Product: /:id
-User Cart: /active/:id
 All past orders: /bycustomer/
-User Profile: /:id
-Admin: add, update, delete
 
-Search - /search/product/:name ; /search/category/:name
+Anusha - User Cart: /active/:id
+
+Karthik - User Profile: /:id
+
+Karthik - Admin: add, update, delete
+
+Shashwat - Search - /search/product/:name ; /search/category/:name
 OR
-Filter - by price, by category, 
+Zeel - Filter - by price, by category,
