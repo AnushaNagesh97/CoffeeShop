@@ -57,4 +57,7 @@ Product.getavailablestock = function(){
 Product.getproductbyprice = function(price){
     return sequelize.query(`SELECT * FROM products WHERE price <= ${price}`,{type: Sequelize.QueryTypes.SELECT});
 };
+Product.getbynameandcategory = function(name,category){
+    return sequelize.query(`SELECT * FROM products WHERE product_name LIKE '%${name}%' AND category LIKE '%${category}%'`,{type: Sequelize.QueryTypes.SELECT});
+};
 module.exports = Product;
