@@ -64,7 +64,7 @@
     <h1 class="text-center p-5">All Products</h1>
     <div class="search-container">
       <!-- <a href="/games/new" class="btn add-new-game">Add new game</a> -->
-      <form action="/products" method="GET">
+      <!-- <form action="/products" method="GET">
         <input
           type="text"
           placeholder="Search by productname "
@@ -72,6 +72,16 @@
           style="min-width: 20%"
           id="searchInput"
         />
+        <select name="type" id="typeSelect">
+          <option value="">No filter</option>
+          <option value="Coffee Beans">Coffee Beans</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Equipment">Equipment</option>
+        </select>
+        <button type="submit">Search</button>
+      </form> -->
+      <form id="searchForm" method="GET">
+        <input type="text" placeholder="Search by productname " name="search" style="min-width: 20%" id="searchInput" />
         <select name="type" id="typeSelect">
           <option value="">No filter</option>
           <option value="Coffee Beans">Coffee Beans</option>
@@ -118,18 +128,120 @@
             console.error("Error fetching products:", error);
           });
       });
-
-      window.onload = function () {
-        var queryParams = new URLSearchParams(window.location.search);
-        var searchQuery = queryParams.get("search");
-        if (searchQuery) {
-          document.getElementById("searchInput").value = searchQuery;
+      
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var searchQuery = document.getElementById('searchInput').value;
+    var typeQuery = document.getElementById("typeSelect").value;
+    console.log("Search query:", searchQuery);
+    console.log("Type query:", typeQuery);
+    if(searchQuery && typeQuery){
+      fetch("/search/product/"+${encodeURIComponent(searchQuery)}+"/category/"+${encodeURIComponent(typeQuery)})
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-        var typeQuery = queryParams.get("type");
-        if (typeQuery) {
-          document.getElementById("typeSelect").value = typeQuery;
+        return response.json();
+      })
+      .then(products => {
+        console.log("Products:", products);
+        const resultsContainer = document.getElementById('productsContainer');
+        resultsContainer.innerHTML = ''; // Clear previous results
+        
+        products.forEach(product => {
+          const productDiv = document.createElement('div');
+          productDiv.className = "col-md-4 mb-4";
+          productDiv.innerHTML = `
+                            <div class="card">
+                                <img src="${product.image_path}" class="card-img-top" alt="${product.product_name} width="50px" height="50px">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.product_name}</h5>
+                                    <p class="card-text">$${product.price}</p>
+                                </div>
+                            </div>
+                        `;
+          resultsContainer.appendChild(productDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
+    }else if (searchQuery){
+      fetch(`/api/products/search/product/${encodeURIComponent(searchQuery)}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-      };
+        return response.json();
+      })
+      .then(products => {
+        console.log("Products:", products);
+        const resultsContainer = document.getElementById('productsContainer');
+        resultsContainer.innerHTML = ''; // Clear previous results
+        
+        products.forEach(product => {
+          const productDiv = document.createElement('div');
+          productDiv.className = "col-md-4 mb-4";
+          productDiv.innerHTML = `
+                            <div class="card">
+                                <img src="${product.image_path}" class="card-img-top" alt="${product.product_name} width="50px" height="50px">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.product_name}</h5>
+                                    <p class="card-text">$${product.price}</p>
+                                </div>
+                            </div>
+                        `;
+          resultsContainer.appendChild(productDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
+    }else if(typeQuery){
+      fetch(`/api/products/search/category/${encodeURIComponent(typeQuery)}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(products => {
+        console.log("Products:", products);
+        const resultsContainer = document.getElementById('productsContainer');
+        resultsContainer.innerHTML = ''; // Clear previous results
+        
+        products.forEach(product => {
+          const productDiv = document.createElement('div');
+          productDiv.className = "col-md-4 mb-4";
+          productDiv.innerHTML = `
+                            <div class="card">
+                                <img src="${product.image_path}" class="card-img-top" alt="${product.product_name} width="50px" height="50px">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.product_name}</h5>
+                                    <p class="card-text">$${product.price}</p>
+                                </div>
+                            </div>
+                        `;
+          resultsContainer.appendChild(productDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
+    }  
+  });
+    
+      // window.onload = function () {
+      //   var queryParams = new URLSearchParams(window.location.search);
+      //   var searchQuery = queryParams.get("search");
+      //   if (searchQuery) {
+      //     document.getElementById("searchInput").value = searchQuery;
+      //   }
+      //   var typeQuery = queryParams.get("type");
+      //   if (typeQuery) {
+      //     document.getElementById("typeSelect").value = typeQuery;
+      //   }
+      // };
     </script>
   </body>
 </html>

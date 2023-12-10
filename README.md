@@ -89,12 +89,12 @@ Data fetch:
 Individual Product: /:id
 All past orders: /bycustomer/
 
-Anusha - User Cart: /active/:id
+Anusha - User Cart: /active/:**
 
 Karthik - User Profile: /:id
 
 Karthik - Admin: add, update, delete
 
-Shashwat - Search - /search/product/:name ; /search/category/:name
+Shashwat - Search - /search/product/:name ; /search/category/:name**
 OR
 Zeel - Filter - by price, by category,

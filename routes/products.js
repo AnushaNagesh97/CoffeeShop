@@ -33,13 +33,13 @@ function rendersearchresults(searchurl){
 }
 // Route to render products.ejs when the endpoint '/' is reached
 router.get("/", (req, res) => {
-  let query = {};
+  // let query = {};
 
-  // I want to search for a product name
-  console.log("Nothign coming here");
+  // // I want to search for a product name
+  // console.log("Nothign coming here");
   
 
-  console.log(req.query.search);
+  // console.log(req.query.search);
 //   if (req.query.search && req.query.type) {
 //     query.name = { $regex: req.query.search, $options: "i" }; // 'i' for case-insensitive
 //     query.type = req.query.type;
