@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Product = require("../models/product");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
@@ -61,7 +62,9 @@ router.get('/user/:id', async function(req, res, next) {
                 var userResult = await User.getUserByID(customer_id);
                 userResult = userResult[0]; //TODO: Implement 404
                 if (userResult.is_Admin == true) {
-                    res.render("user_admin", {userResult: userResult });
+                    var products = await Product.getAll();
+                    console.log(products);
+                    res.render("user_admin", {userResult: userResult, products: products, user: req.session.passport });
                 } else {
                     res.render("user_customer", {userResult: userResult, user: req.session.passport });
                 }
@@ -71,6 +74,15 @@ router.get('/user/:id', async function(req, res, next) {
         } else {
             res.send('Who the fuck are you?');
         }
+    }
+});
+
+router.put('/user/:id', jsonParser, async function(req, res, next) {
+    try {
+        const customer_id = req.params.id;
+        
+    } catch (error) {
+
     }
 });
 

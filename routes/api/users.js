@@ -1,5 +1,8 @@
 const express = require('express');
+const User = require('../../models/User');
 const router = express.Router();
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
 
 // GET all users
@@ -26,6 +29,16 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/roles/:role', jsonParser, async (req, res) => {
+    try{
+        
+        const users = await User.getUsersByRole(req.params.role);
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error: '+ error);
+    }
+});
 
 
 

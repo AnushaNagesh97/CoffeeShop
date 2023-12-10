@@ -19,19 +19,19 @@ const Product = sequelize.define('Product', {
     alt_text: true
 });
 
-Product.getAll = function() {
+Product.getAll = async function() {
     return sequelize.query('SELECT * FROM products', { type: Sequelize.QueryTypes.SELECT });
 };
 
-Product.getOne = function(id) {
+Product.getOne = async function(id) {
     return sequelize.query(`SELECT * FROM products WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.SELECT });
 };
 
-Product.add = function(product) {
+Product.add = async function(product) {
     return sequelize.query(`INSERT INTO products (product_name, price, available_stock, category, image_path, product_description, alt_text) VALUES ('${product.product_name}', ${product.price}, ${product.available_stock}, '${product.category}', '${product.image_path}', '${product.product_description}', '${product.alt_text}')`, { type: Sequelize.QueryTypes.INSERT });
 };
 
-Product.update = function(id, product) {
+Product.update = async function(id, product) {
     return sequelize.query(`UPDATE products SET product_name = '${product.product_name}', price = ${product.price}, available_stock = ${product.available_stock}, category = '${product.category}', image_path = '${product.image_path}', product_description = '${product.product_description}', alt_text = '${product.alt_text}' WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
 };
 

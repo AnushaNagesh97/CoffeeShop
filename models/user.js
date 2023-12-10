@@ -31,6 +31,16 @@ User.getAll = async function() {
     return sequelize.query('SELECT * FROM users', { type: Sequelize.QueryTypes.SELECT });
 };
 
+User.getUsersByRole = async function(role) {
+    if (role == "all") {
+        return sequelize.query('SELECT * FROM users', { type: Sequelize.QueryTypes.SELECT });
+    } else if (role == "customer") {
+        return sequelize.query('SELECT * FROM users WHERE NOT is_Admin = 1', { type: Sequelize.QueryTypes.SELECT });
+    } else if (role == "admin") {
+        return sequelize.query('SELECT * FROM users WHERE is_Admin = 1', { type: Sequelize.QueryTypes.SELECT });
+    }
+};
+
 User.getUserByID = async function(customer_id) {
     return sequelize.query(`SELECT * FROM users WHERE customer_id = '${customer_id}'`, { type: Sequelize.QueryTypes.SELECT });
 };
@@ -49,7 +59,7 @@ User.addRegister = async function(user) {
 };
 
 User.update = async function(id, user) {
-    return sequelize.query(`UPDATE users SET customer_name = '${user.customer_name}', address = '${user.address}', cart_id = ${user.cart_id}, phone_number = ${user.phone_number}, is_Admin = ${user.is_Admin}, wallet_balance = ${user.wallet_balance}, password = '${user.password}', email = '${user.email}' WHERE customer_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
+    return sequelize.query(`UPDATE users SET customer_name = '${user.customer_name}', address = '${user.address}', phone_number = ${user.phone_number}, is_Admin = ${user.is_Admin}, wallet_balance = ${user.wallet_balance}, password = '${user.password}', email = '${user.email}' WHERE customer_id = ${id}`, { type: Sequelize.QueryTypes.UPDATE });
 };
 
 User.getAdmins = async function() {

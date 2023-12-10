@@ -67,7 +67,7 @@
                             <div class="card">
                                 <img src="${product.image_path}" class="card-img-top" alt="${product.product_name}" width="50px" height="50px">
                                 <div class="card-body">
-                                    <h5 class="card-title">${product.product_name}</h5>
+                                    <h5 class="card-title"><a href="/product/${product.product_id}">${product.product_name}</a></h5>
                                     <p class="card-text-id" hidden>${product.product_id}</p>
                                     <p class="card-text">$${product.price}</p>
                                     <button class="btn btn-primary addToCartBtn" data-product-id="${product.id}">Add to Cart</button>
