@@ -28,7 +28,7 @@ Product.getOne = async function(id) {
 };
 
 Product.add = async function(product) {
-    return sequelize.query(`INSERT INTO products (product_name, price, available_stock, category, image_path, product_description, alt_text) VALUES ('${product.product_name}', ${product.price}, ${product.available_stock}, '${product.category}', '${product.image_path}', '${product.product_description}', '${product.alt_text}')`, { type: Sequelize.QueryTypes.INSERT });
+    return sequelize.query(`INSERT INTO products (product_name, price, available_stock, category, image_path, product_description, alt_text) VALUES ("${product.product_name}", ${product.price}, ${product.available_stock}, "${product.category}", "${product.image_path}", "${product.product_description}", "${product.alt_text}")`, { type: Sequelize.QueryTypes.INSERT });
 };
 
 Product.update = async function(id, product) {
