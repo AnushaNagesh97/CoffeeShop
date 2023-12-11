@@ -21,6 +21,7 @@ router.get('/allproducts', async (req, res) => {
 // GET a product by its id
 router.get('/:id', async (req, res) => {
     try {
+        console.log('Fetching details of product:', req.params.id);
         const product = await Product.getOne(req.params.id);
         console.log("Product with id ", req.params.id, ": ", product);
         res.json(product);
@@ -37,7 +38,7 @@ try {
     const product = await Product.add(req.body);
     console.log("Product added: ", product);
     res.json(product);
-    } catch(error) {   
+    } catch(error) {
         console.log("Product not added: ", product);
         res.status(400).send('Error: ' + error);
     }

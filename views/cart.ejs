@@ -53,6 +53,10 @@ qty change -->
             </div>
         </div>
 
+        <div class="cart-total mb-3">
+            <h4>Total: $<span id="totalPrice">XXX.XX</span></h4>
+        </div>
+
         <form action="/cart/checkout" method="post" class="user-info-form">
             <h3 class="mb-3">Shipping Information</h3>
             <div class="row">
@@ -78,11 +82,7 @@ qty change -->
                 </div>
             </div>
 
-            <div class="cart-total mb-3">
-                <h4>Total: $XXX.XX</h4>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Checkout</button>
+            <button type="submit" id="checkoutBtn" class="btn btn-primary">Checkout</button>
         </form>
     </div>
 
@@ -100,7 +100,8 @@ qty change -->
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const userId = 1; // Replace with the actual user ID
+            const userId = 1; //  TODO: Replace with the actual user ID
+            let totalPrice = 0;
             try {
                 const response = await fetch(`/api/carts/active/${userId}`);
                 if (!response.ok) {
@@ -127,6 +128,7 @@ qty change -->
                     `;
                     cartItemsContainer.appendChild(cartDiv);
                 });
+                calculateTotalPrice();
 
                 // Event listeners for increment and delete buttons
                 document.querySelectorAll('.incrementBtn').forEach(button => {
@@ -139,6 +141,10 @@ qty change -->
                         const currentQuantity = parseInt(quantityParagraph.textContent.split(': ')[1], 10);
                         const updatedQuantity = currentQuantity + 1;
                         quantityParagraph.textContent = `Quantity: ${updatedQuantity}`;
+                        
+                        //const productId = button.parentNode.querySelector('h5');
+                        //const productPrice = await fetchProductPrice(productId);
+                        calculateTotalPrice();
                     });
                 });
 
@@ -146,6 +152,7 @@ qty change -->
                     button.addEventListener('click', async () => {
                         const cartId = button.getAttribute('data-cart-id');
                         await handleDelete(cartId);
+                        calculateTotalPrice();
                     });
                 });
             } catch (error) {
@@ -175,10 +182,70 @@ qty change -->
                 }
                 // Update cart quantity
                 console.log(`Incremented quantity for cart ID ${cartId}`);
+                //Update Total Amount
+                //totalPrice += productPrice;
+                //document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
             } catch (error) {
                 console.error('Error incrementing quantity:', error);
             }
         }
+
+        async function fetchProductPrice(productId) {
+            try {
+                //console.log('Fetching price of product:', productId);
+                const response = await fetch(`/api/products/${productId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch product price');
+                }
+                const product = await response.json();
+                //console.log('Fetched product:', product);
+                if (Array.isArray(product) && product.length > 0) {
+                    const fetchedProduct = product[0];
+                    console.log('Product price:', fetchedProduct.price);
+        
+                    // Access the price property of the fetched product object
+                    return fetchedProduct.price;
+                } else {
+                    throw new Error('Product not found or invalid response');
+                }
+            } catch (error) {
+                console.error('Error fetching product price:', error);
+                return 0; // Return 0 in case of error
+            }
+        }
+
+        // Calculate total price function
+    function calculateTotalPrice() {
+        const cartItems = document.querySelectorAll('.row.mb-3');
+        totalPrice = 0;
+
+        cartItems.forEach(cart => {
+            const productId = cart.querySelector('h5').textContent.split(': ')[1];
+            const quantity = parseInt(cart.querySelector('p').textContent.split(': ')[1], 10);
+
+            fetchProductPrice(productId)
+                .then(productPrice => {
+                    totalPrice += productPrice * quantity;
+                    document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
+                })
+                .catch(error => {
+                    console.error('Error fetching product price:', error);
+                });
+        });
+    }
+    
+    function calculateTotalQuantity() {
+        const cartItems = document.querySelectorAll('.row.mb-3');
+        let totalQuantity = 0;
+
+        cartItems.forEach(cart => {
+            const quantity = parseInt(cart.querySelector('p').textContent.split(': ')[1], 10);
+            totalQuantity += quantity;
+            console.log('Total items in cart:', totalQuantity);
+        });
+
+        return totalQuantity;
+    }
 
         async function handleDelete(cartId) {
             try {
@@ -194,6 +261,93 @@ qty change -->
                 console.error('Error deleting cart:', error);
             }
         }
+
+        document.getElementById('checkoutBtn').addEventListener('click', async (event) => {
+            console.log('Attempting checkout');
+            event.preventDefault();
+            const walletBalance = parseFloat(document.getElementById('wallet-balance').value.replace('$', ''));
+            const total = parseFloat(document.getElementById('totalPrice').textContent);
+    
+            if (total > walletBalance) {
+                // Display error message for insufficient balance
+                alert('Insufficient balance. Please add funds to your wallet.');
+            } else {
+                try {
+                    console.log('Sufficient wallet balance');
+                    const userId = 2; // TODO: Replace with actual user ID
+                    const totalPrice = parseFloat(document.getElementById('totalPrice').textContent);
+                    const totalQuantity = calculateTotalQuantity(); // Define a function to calculate total quantity
+
+                    const today = new Date();
+                    const formattedDate = today.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+
+                    const orderData = {
+                        customer_id: userId,
+                        order_date: formattedDate,
+                        total_price: totalPrice,
+                        quantity: totalQuantity
+                    };
+
+                    const response = await fetch(`/api/orders/bycustomer`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(orderData)
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error('Failed to create order');
+                    }
+                    const newOrder = await response.json();
+                    console.log('New order created!:', newOrder[0]);
+
+                    // Mark all carts as inactive
+                    const cartItems = document.querySelectorAll('.row.mb-3');
+                    cartItems.forEach(async (cart) => {
+                        console.log('Marking inactive');
+                        const cartId = cart.querySelector('.deleteBtn').getAttribute('data-cart-id');
+                        //await markCartAsInactive(cartId);
+                        await handleDelete(cartId);
+                    });
+
+                    // Subtract total amount from wallet balance
+                    const updatedWalletBalance = walletBalance - totalPrice;
+                    document.getElementById('wallet-balance').value = `$${updatedWalletBalance.toFixed(2)}`;
+
+
+                    const orderID = newOrder[0];
+                    console.log('Sending order ID for rendering:', orderID);
+                    // Order created successfully, render the 'order.ejs' template
+                    window.location.href = `/order?orderId=${orderID}`; // Change the URL as needed
+                } catch (error) {
+                    console.error('Error creating order:', error);
+                    // Handle error scenario here
+                }
+            }
+        });
+
+        // Function to mark cart as inactive
+        async function markCartAsInactive(cartId) {
+            try {
+                console.log('Marking ordered cart as inactive:', cartId);
+                const response = await fetch(`/api/carts/${cartId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cartId: cartId }) // Pass the cartId as needed
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log(`Cart with ID ${cartId} marked as inactive`);
+            } catch (error) {
+                console.error('Error marking cart as inactive:', error);
+                // Handle error scenario here
+            }
+        }
+
     </script>
 </body>
 

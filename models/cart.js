@@ -45,5 +45,9 @@ Cart.getStatus = function(id) {
 Cart.deletecart = function(id) {
     return sequelize.query(`DELETE FROM carts WHERE cart_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
 };
-
+Cart.makeInactive = function (id) {
+    return sequelize.query(`UPDATE carts SET is_active = false WHERE cart_id = ${id}`, {
+        type: Sequelize.QueryTypes.UPDATE
+    });
+};
 module.exports = Cart;

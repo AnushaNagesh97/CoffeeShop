@@ -27,7 +27,7 @@ Order.getOne = function(id) {
 };
 
 Order.add = function(order) {
-    return sequelize.query(`INSERT INTO orders (customer_id, order_date, product_id, total_price, quantity) VALUES (${order.customer_id}, '${order.order_date}', ${order.product_id}, ${order.total_price}, ${order.quantity})`, { type: Sequelize.QueryTypes.INSERT });
+    return sequelize.query(`INSERT INTO orders (customer_id, order_date, total_price, quantity) VALUES (${order.customer_id}, '${order.order_date}', ${order.total_price}, ${order.quantity})`, { type: Sequelize.QueryTypes.INSERT });
 };
 
 Order.getbyuser = function(id) {

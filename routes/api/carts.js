@@ -92,4 +92,14 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.post('/:id', async (req, res) => {
+    try {
+        console.log("Cart with id to be marked inactive: ", req.body.cartId);
+        const cart = await Cart.makeInactive(req.body.cartId);
+        res.json(cart);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+    }
+});
 module.exports = router;
