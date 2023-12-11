@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
 // GET an order by its id
 router.get('/byorder/:id', async (req, res) => {
     try {
+        console.log('Fetching details of order:', req.params.id);
         const order = await Order.getOne(req.params.id);
         console.log("Order with id ", req.params.id, ": ", order);
         res.json(order);
@@ -31,10 +32,11 @@ router.get('/byorder/:id', async (req, res) => {
 // I didnt get this. Someone explain this to me.
 
 // create an order in the database for a user_id
-router.post('/bycustomer/', async (req, res) => {
+router.post('/bycustomer', async (req, res) => {
     try {
+        console.log('Creating an order for customer:', req.body);
         const order = await Order.add(req.body);
-        console.log("Order with id ", req.params.id, ": ", order);
+        console.log("Order with id: ", order);
         res.json(order);
     } catch (error) {
         console.error(error);

@@ -45,40 +45,44 @@
 
         <!-- Order Summary -->
         <div class="order-summary mb-5">
-            <h3>Order #123456</h3>
-            <p>Date: 01/01/2023</p>
-            <p>Total Amount: $XXX.XX</p>
+            <h3>Order #<span id="orderId"></span></h3>
+            <p>Order Date: <span id="orderDate"></span></p>
+            <p>Total Amount: $<span id="totalAmount"></span></p>
+            <p>Number of items to be delivered: <span id="numberOfItems"></span></p>
+            <p>Please expect delivery within 2 weeks of order date</p>
             <!-- Additional order summary details -->
         </div>
 
-        <!-- Product Details (Loop through each product in the order) -->
-        <div class="product-details">
-            <!-- Example of a product in the order -->
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <img src="path_to_product_image.jpg" alt="Product Image" class="img-fluid">
-                </div>
-                <div class="col-md-8">
-                    <h5>Product Name</h5>
-                    <p>Price: $XX.XX</p>
-                    <p>Quantity: X</p>
-                    <!-- Additional product details -->
-                </div>
-            </div>
-            <!-- End of product details loop -->
-        </div>
-    </div>
-
     <footer class="bg-brown text-white text-center py-3">
-        <p>&copy; 2023 [name]. All Rights Reserved.</p>
-        <div class="social-icons">
-            <a href="your_facebook_link" class="bi bi-facebook"></a>
-            <a href="your_twitter_link" class="bi bi-twitter"></a>
-            <a href="your_instagram_link" class="bi bi-instagram"></a>
-            <!-- Add other social media links as needed -->
-        </div>
+        <!-- Footer content goes here -->
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            console.log('Order ID to be rendered:', orderId);
+            // Fetch order details using the orderId
+            try {
+                const response = await fetch(`/api/orders/byorder/${orderId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch order details');
+                }
+                const order = await response.json();
+                console.log('Rendering the details:', order);
+                // Fill order details fields with fetched data
+                document.getElementById('orderId').textContent = order[0].order_id;
+                document.getElementById('orderDate').textContent = order[0].order_date;
+                document.getElementById('totalAmount').textContent = order[0].total_price;
+                document.getElementById('numberOfItems').textContent = order[0].quantity;
+                // Additional fields can be filled similarly
+                
+            } catch (error) {
+                console.error('Error fetching order details:', error);
+                // Handle error scenario, e.g., display an error message
+            }
+        });
+    </script>
 </body>
 </html>

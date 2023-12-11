@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Coffee Shop</title>
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Bootstrap Icons -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="styles.css">
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
         <div class="container-fluid">
             <a class="navbar-brand" href="/index">Coffee Shop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    
+
                     <form class="d-flex mx-auto">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-light" type="submit">Search</button>
                     </form>
                 </ul>
-                
-                
+
+
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="/login"><i class="bi bi-box-arrow-in-right"></i> Login</a>
@@ -76,7 +79,7 @@
                         `;
                         productsContainer.appendChild(cardDiv);
                     });
-    
+
                     // Event listener for Add to Cart buttons
                     document.querySelectorAll('.addToCartBtn').forEach(button => {
                         console.log('Entering click');
@@ -92,11 +95,11 @@
                 .catch(error => {
                     console.error('Error fetching products:', error);
                 });
-    
+
             function addToCart(productId, productName, productPrice) {
                 console.log('Adding product:', productId, productName, productPrice);
                 // Logic to add the product to the cart
-                const userId = 1; // Replace with the actual user ID
+                const userId = 1; // TODO: Replace with the actual user ID
                 const requestData = {
                     customer_id: userId,
                     quantity: 1, // Assuming quantity is 1
@@ -104,7 +107,7 @@
                     product_id: productId,
                     // Add other parameters if needed
                 };
-    
+
                 // Perform a fetch call to the API endpoint
                 fetch('/api/carts/addtocart', {
                     method: 'POST',
@@ -113,22 +116,25 @@
                     },
                     body: JSON.stringify(requestData),
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Product added to cart:', productName, productPrice);
-                    // Handle the success response here
-                })
-                .catch(error => {
-                    console.error('Error adding product to cart:', error);
-                    // Handle the error here
-                });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Product added to cart:', productName, productPrice);
+                        // Handle the success response here
+                    })
+                    .catch(error => {
+                        console.error('Error adding product to cart:', error);
+                        // Handle the error here
+                    });
             }
-        });
+
+
+    });
     </script>
 </body>
+
 </html>
