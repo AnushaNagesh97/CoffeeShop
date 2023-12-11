@@ -10,7 +10,7 @@ CREATE TABLE Users (
     cart_id INT, -- This will become a foreign key later
     phone_number CHAR(10),
     is_Admin BOOLEAN DEFAULT 0,
-    wallet_balance FLOAT DEFAULT 0.0,
+    wallet_balance FLOAT DEFAULT 100.0,
     password VARCHAR(255) NOT NULL, -- assuming hashed
     salt VARCHAR(255) NOT NULL,-- salt maybe req
     email VARCHAR(30) NOT NULL,
@@ -73,7 +73,7 @@ INSERT INTO Products (product_name, price, available_stock, category, image_path
     ('Insulated Travel Mug', 14.99, 100, 'Accessories', '/images/travel_mug.jpeg', 'Insulated mug to keep your coffee hot on the go', 'Travel mug');
  
 -- Insert sample users
-/*INSERT INTO Users (customer_name, address, phone_number, is_Admin, wallet_balance, email) VALUES 
+INSERT INTO Users (customer_name, address, phone_number, is_Admin, wallet_balance, email) VALUES 
     ('John Doe', '123 Brew Lane', '555-1234', FALSE, 35.75, 'johndoe@example.com'),
     ('Jane Smith', '456 Java St', '555-5678', TRUE, 120.50, 'janesmith@example.com'),
     ('Alice Brown', '789 Mocha Rd', '555-2345', FALSE, 58.30, 'alicebrown@example.com'),
@@ -111,7 +111,15 @@ INSERT INTO Carts (customer_id, quantity, is_active, product_id) VALUES
     (7, 2, TRUE, 7),
     (8, 1, TRUE, 8),
     (9, 1, TRUE, 9),
-    (10, 2, TRUE, 10);*/
+    (10, 2, TRUE, 10);
  
 -- After inserting into Carts, update the Users with the cart_id
 -- UPDATE Users SET cart_id = (SELECT cart_id FROM Carts WHERE Users.customer_id = Carts.customer_id AND is_active IS TRUE);
+-- Drop the foreign key constraint
+-- ALTER TABLE Orders DROP FOREIGN KEY orders_ibfk_2;
+
+-- Remove the product_id column
+-- ALTER TABLE Orders DROP COLUMN product_id;
+-- ALTER TABLE Users
+-- ADD salt VARCHAR(255); -- Change the data type and length according to your needs
+-- ALTER COLUMN wallet_balance SET DEFAULT 100.0;
