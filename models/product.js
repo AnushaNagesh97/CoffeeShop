@@ -36,9 +36,9 @@ Product.update = async function(id, product) {
 };
 
 Product.delete = async function(id) {
-    await sequelize.query(`DELETE FROM carts WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
-    await sequelize.query(`DELETE FROM orders WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
-    return sequelize.query(`DELETE FROM products WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
+    await sequelize.query(`DELETE FROM carts WHERE product_id = ${id};`, { type: Sequelize.QueryTypes.DELETE });
+    await sequelize.query(`DELETE FROM orders WHERE product_id = ${id};`, { type: Sequelize.QueryTypes.DELETE });
+    return sequelize.query(`DELETE FROM products WHERE product_id = ${id};`, { type: Sequelize.QueryTypes.DELETE });
 };
 
 Product.getbyname = function(search_string){

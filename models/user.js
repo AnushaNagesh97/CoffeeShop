@@ -38,6 +38,8 @@ User.getUsersByRole = async function(role) {
         return sequelize.query('SELECT * FROM users WHERE NOT is_Admin = 1', { type: Sequelize.QueryTypes.SELECT });
     } else if (role == "admin") {
         return sequelize.query('SELECT * FROM users WHERE is_Admin = 1', { type: Sequelize.QueryTypes.SELECT });
+    } else if (role == "none") {
+        return [];
     }
 };
 

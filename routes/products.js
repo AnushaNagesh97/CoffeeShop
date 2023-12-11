@@ -116,5 +116,14 @@ router.post('/:id([0-9]+)', jsonParser, async function(req, res) {
     }
 });
 
+router.delete("/:id([0-9]+)", jsonParser, async function(req, res) {
+    try {
+        await Product.delete(req.params.id);
+    } catch (error) {
+        console.error('Error handling DELETE request:', error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+});
+
 
 module.exports = router;

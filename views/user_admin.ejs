@@ -18,6 +18,7 @@
         <!-- User Role Filter -->
         <div class="user-filter mb-4">
             <select class="form-select" onchange="filterUsers(this.value)">
+                <option value="none">None</option>
                 <option value="all">All Users</option>
                 <option value="customer">Customers</option>
                 <option value="admin">Admins</option>
@@ -64,7 +65,7 @@
                         <td><%= product.category %></td>
                         <td>
                             <a class="btn btn-primary" href="/product/<%= product.product_id %>" role="button">Update</a>
-                            <a class="btn btn-danger" href="#" role="button">Delete</a>
+                            <button class="btn btn-danger" onclick="deleteFunction( <%= product.product_id %> )">Delete</button>
                         </td>
                     </tr>
                 <% } %>
@@ -114,6 +115,14 @@
                 var td = tableRow.insertCell();
                 td.textContent = user.is_Admin == 1 ? "Admin" : "Customer";
             }
+        }
+
+        function deleteFunction(id) {
+            console.log(id);
+            fetch('/product/'+id, {
+                method: 'DELETE'
+            });
+            location.reload();
         }
     </script>
 </body>
