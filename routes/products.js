@@ -65,8 +65,33 @@ router.get("/", (req, res) => {
 router.get("/product", (req, res) => {
   res.render("product");
 });
+router.get('/newproduct', function(req, res, next) {
+    if (req.session.passport == undefined) {
+        res.send('Who the fuck are you?');
+    } else {
+        if (req.session.passport.user.is_Admin == true) {
+           res.render('newproduct', {user: req.session.passport});
+        } else {
+            res.send('Who the fuck are you?');
+        }
+    }
+});
 
-router.get('/:id', async function(req, res) {
+router.post('/newproduct', jsonParser, async function(req, res, next) {
+    try {
+        try {
+            await Product.add(req.body);
+            
+        } catch(err) {
+            next(err);
+        }
+        res.redirect('/user/'+req.session.passport.user.customer_id);
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.get('/:id([0-9]+)', async function(req, res) {
     const sessionData = req.session.passport;
     console.log("the id: ", req.params.id);
     var productDetails = await Product.getOne(req.params.id);
@@ -78,7 +103,27 @@ router.get('/:id', async function(req, res) {
     }
 });
 
-router.put(':/id', jsonParser, async function(req, res) {
-
+router.post('/:id([0-9]+)', jsonParser, async function(req, res) {
+    try {
+        try {
+            await Product.update(req.params.id, req.body);
+        } catch(err) {
+            next(err);
+        }
+        res.redirect('/product/'+req.params.id);
+    } catch (err) {
+        next(err);
+    }
 });
+
+router.delete("/:id([0-9]+)", jsonParser, async function(req, res) {
+    try {
+        await Product.delete(req.params.id);
+    } catch (error) {
+        console.error('Error handling DELETE request:', error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+});
+
+
 module.exports = router;

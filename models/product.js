@@ -28,7 +28,7 @@ Product.getOne = async function(id) {
 };
 
 Product.add = async function(product) {
-    return sequelize.query(`INSERT INTO products (product_name, price, available_stock, category, image_path, product_description, alt_text) VALUES ('${product.product_name}', ${product.price}, ${product.available_stock}, '${product.category}', '${product.image_path}', '${product.product_description}', '${product.alt_text}')`, { type: Sequelize.QueryTypes.INSERT });
+    return sequelize.query(`INSERT INTO products (product_name, price, available_stock, category, image_path, product_description, alt_text) VALUES ("${product.product_name}", ${product.price}, ${product.available_stock}, "${product.category}", "${product.image_path}", "${product.product_description}", "${product.alt_text}")`, { type: Sequelize.QueryTypes.INSERT });
 };
 
 Product.update = async function(id, product) {
@@ -36,9 +36,9 @@ Product.update = async function(id, product) {
 };
 
 Product.delete = async function(id) {
-    await sequelize.query(`DELETE FROM carts WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
-    await sequelize.query(`DELETE FROM orders WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
-    return sequelize.query(`DELETE FROM products WHERE product_id = ${id}`, { type: Sequelize.QueryTypes.DELETE });
+    await sequelize.query(`DELETE FROM carts WHERE product_id = ${id};`, { type: Sequelize.QueryTypes.DELETE });
+    await sequelize.query(`DELETE FROM orders WHERE product_id = ${id};`, { type: Sequelize.QueryTypes.DELETE });
+    return sequelize.query(`DELETE FROM products WHERE product_id = ${id};`, { type: Sequelize.QueryTypes.DELETE });
 };
 
 Product.getbyname = function(search_string){
