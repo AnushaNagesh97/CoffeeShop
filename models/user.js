@@ -57,7 +57,7 @@ User.getIDByEmail = async function(email) {
 
 User.addRegister = async function(user) {
     console.log(user);
-    return sequelize.query(`INSERT INTO users (salt, password, email, customer_name, address, phone_number) VALUES ('${user.salt}', '${user.password}', '${user.email}', '${user.customer_name}', '${user.address}', '${user.phone}')`, { type: Sequelize.QueryTypes.INSERT });
+    return sequelize.query(`INSERT INTO users (salt, password, email, customer_name, address, phone_number, is_Admin) VALUES ('${user.salt}', '${user.password}', '${user.email}', '${user.customer_name}', '${user.address}', '${user.phone}', ${user.is_Admin})`, { type: Sequelize.QueryTypes.INSERT });
 };
 
 User.update = async function(id, user) {

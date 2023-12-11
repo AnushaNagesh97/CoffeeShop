@@ -128,6 +128,7 @@ router.post("/register", async function(req, res, next) {
             customer_name: req.body.customer_name,
             address: req.body.address,
             phone: req.body.phone,
+            is_Admin: req.body.is_Admin == 1 ? 1 : 0
         };
         try{
 

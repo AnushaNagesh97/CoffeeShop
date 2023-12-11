@@ -64,7 +64,7 @@
                         <td><%= product.available_stock %></td>
                         <td><%= product.category %></td>
                         <td>
-                            <a class="btn btn-primary" href="/product/<%= product.product_id %>" role="button">Update</a>
+                            <a class="btn btn-primary" href="/viewall/<%= product.product_id %>" role="button">Update</a>
                             <button class="btn btn-danger" onclick="deleteFunction( <%= product.product_id %> )">Delete</button>
                         </td>
                     </tr>
