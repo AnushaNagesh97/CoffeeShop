@@ -87,6 +87,17 @@ router.get('/search/category/:name', async (req, res) => {
         res.status(500).send('Error: ' + error);
     }
 });
+// search for a product in the database by name and category.
+router.get('/search/product/:name/category/:category', async (req, res) => {
+    try {
+        const product = await Product.getbynameandcategory(req.params.name,req.params.category);
+        //console.log("Product with id ", req.params.id, ": ", product);
+        res.json(product);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+    }
+});
 // get in-stock products in the database.
 router.get('/search/instock', async (req, res) => {
     try {
